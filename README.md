@@ -2,7 +2,7 @@
 ![status](https://img.shields.io/badge/status-actively--developed-brightgreen)  
 This project is **currently** being developed and improved with additional features, optimizations, and testing.  
 
-## Introduction
+## Project Description
 
 **Inference** is the process where a trained Large Language Model (LLM) takes a user’s prompt and generates a response by predicting one token at a time until the output is complete.
 It is the stage where the model applies everything in it's training to produce answers without updating its knowledge. Inference speed and efficiency directly impact user experience, making it a critical focus for performance benchmarking.
@@ -36,8 +36,24 @@ By comparing streaming vs batch, this project helps answers; When is streaming b
 
 
 ### Tech Stack  
-**Python** · **Hugging Face Transformers** · **FastAPI** · **Docker** · **PyTorch** · **pandas** · **scikit-learn** · **pytest** · **Streamlit** · **GitHub Actions (CI)** · **logging** · **dotenv** · **modular code structure**  
+**Python** · **Hugging Face Transformers** · **FastAPI** · **Docker** · **PyTorch** · **pandas** · **scikit-learn** · **pytest** · **Streamlit** · **GitHub Actions (CI)** · **logging** 
 
+### Project Architecture
+
+```mermaid
+flowchart TD
+    A[User Prompt] --> B{Choose Inference Mode}
+    B -->|Streaming| C[/stream endpoint/]
+    B -->|Batch| D[/batch endpoint/]
+
+    C --> E[stream_inference.py]
+    D --> F[batch_inference.py]
+
+    E --> G[Benchmark Logger]
+    F --> G[Benchmark Logger]
+
+    G --> H[inference_logs.csv]
+    H --> I[analysis.ipynb → Metrics & Plots]
 
 ### Set Up
 TBD
