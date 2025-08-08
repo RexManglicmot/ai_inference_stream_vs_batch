@@ -1,6 +1,15 @@
 ## Introduction
 
-This project benchmarks LLM inference performance by comparing streaming and batch generation modes across multiple key metrics
+**Inference** is the process where a trained Large Language Model (LLM) takes a user’s prompt and generates a response by predicting one token at a time until the output is complete.
+It is the stage where the model applies everything in it's training to produce answers without updating its knowledge. Inference speed and efficiency directly impact user experience, making it a critical focus for performance benchmarking.
+
+In this project, there is a focus on 2:
+
+- **Streaming inference** is where model begins sending tokens to the user as soon as they are generated (similar to typing). This improves perceived responsiveness but may require more complex infrastructure.
+
+- **Batch inference** is where the model processes one or more prompts fully before returning results (sending a full prompt).  This can be more efficient for high-throughput workloads but may introduce longer wait times for the first output.
+
+This project benchmarks streaming vs batch LLM inference to understand the trade-offs of metrics in speed, throughput, and memory usage.
 
 ### Metrics 
 
