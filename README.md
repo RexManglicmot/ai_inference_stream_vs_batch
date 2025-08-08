@@ -40,20 +40,21 @@ By comparing streaming vs batch, this project helps answers; When is streaming b
 
 ### Project Architecture
 
-```mermaid
-flowchart TD
-    A[User Prompt] --> B{Choose Inference Mode}
-    B -->|Streaming| C[/stream endpoint/]
-    B -->|Batch| D[/batch endpoint/]
+## 📐 Project Architecture
 
-    C --> E[stream_inference.py]
-    D --> F[batch_inference.py]
+```text
+User Prompt
+ |
+ ├──> /stream  →  stream_inference()  →  token-by-token  →  log + return
+ |
+ └──> /batch   →  batch_inference()   →  full generation →  log + return
+       ↓
+  benchmark_logger.py  (latency, memory, tokens/sec)
+       ↓
+  inference_logs.csv
+       ↓
+  analysis.ipynb  →  plots, statistics, summary
 
-    E --> G[Benchmark Logger]
-    F --> G[Benchmark Logger]
-
-    G --> H[inference_logs.csv]
-    H --> I[analysis.ipynb → Metrics & Plots]
 
 ### Set Up
 TBD
