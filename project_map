@@ -1,0 +1,42 @@
+llm_inference_benchmark/
+│
+├── app/                          # Core Python logic
+│   ├── __init__.py
+│   ├── logger_config.py           # Logger (console + rotating file)
+│   ├── config_loader.py           # Reads settings.yaml
+│   ├── prompt_loader.py           # Reads prompts.csv
+│   ├── model_loader.py            # Loads tokenizer + model
+│   ├── inference_batch.py         # Batch inference runner
+│   ├── inference_stream.py        # Streaming inference runner
+│   ├── metrics_logger.py          # Logs metrics to CSV/JSONL
+│   └── benchmark_logger.py        # Orchestrates benchmark runs
+│
+├── config/
+│   └── settings.yaml              # Project settings
+│
+├── data/
+│   ├── prompts.csv                 # Benchmark prompts
+│   └── inference_logs.csv          # Generated benchmark results
+│
+├── logs/
+│   └── app.log                     # Logger output
+│
+├── analysis/
+│   ├── explore_metrics.ipynb       # Notebook for plots + tables
+│   └── analyze_results.py          # CLI analysis + stats tests
+│
+├── scripts/
+│   ├── run_benchmark.sh            # Runs benchmark from CLI
+│   ├── run_tests.sh                # Runs pytest
+│   └── analyze.sh                  # Runs analysis
+│
+├── tests/
+│   ├── test_config_loader.py
+│   ├── test_prompt_loader.py
+│   └── test_inference.py
+│
+├── requirements.txt                # Runtime dependencies
+├── dev-requirements.txt             # Dev/test/lint dependencies
+├── README.md                        # Project overview + run instructions
+├── .gitignore                       # Ignore venv, data logs, etc.
+└── LICENSE                          # MIT or Apache-2.0

@@ -1,0 +1,11 @@
+# Local only confiv for Streaming vs Batch Inference
+
+# Model + generation
+model_id: "gpt2"        # Model ID from HuggingFace
+device: "cpu"           # "cpu" pr "cuda"
+max_new_tokens: 64
+temperature: 0.7
+
+# Benchmark controls
+num_runs: 1
+prompt_sample_size: 0   # 0 = use all prompts
