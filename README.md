@@ -24,7 +24,6 @@ This project benchmarks streaming vs batch LLM inference to understand the trade
 
 
 ### Why This Project Matters
-Inference performance directly affects user experience and system efficiency:
 
 1) Low latency → Faster responses in interactive apps like chat or code assistants, improving user satisfaction. Even though the answer is correct, users perceive slow responses as poor quality — especially in real-time tools.
 
@@ -37,8 +36,7 @@ By comparing streaming vs batch, this project helps answers; When is streaming b
 
 
 ### Tech Stack  
-**Python** · **Hugging Face Transformers** · **FastAPI** · **Docker** · **PyTorch** · **pandas** · **scikit-learn**  
-- **pytest** · **Streamlit** · **GitHub Actions (CI)** · **logging** · **dotenv** · **modular code structure**  
+**Python** · **Hugging Face Transformers** · **FastAPI** · **Docker** · **PyTorch** · **pandas** · **scikit-learn** · **pytest** · **Streamlit** · **GitHub Actions (CI)** · **logging** · **dotenv** · **modular code structure**  
 
 
 ### Set Up
