@@ -36,11 +36,9 @@ By comparing streaming vs batch, this project helps answers; When is streaming b
 
 
 ### Tech Stack  
-**Python** · **Hugging Face Transformers** · **FastAPI** · **Docker** · **PyTorch** · **pandas** · **scikit-learn** · **pytest** · **Streamlit** · **GitHub Actions (CI)** · **logging** 
+Python · Hugging Face Transformers · FastAPI · Docker · PyTorch · pandas · scikit-learn · pytest · Streamlit · GitHub Actions (CI) · logging 
 
 ### Project Architecture
-
-## 📐 Project Architecture
 
 ```text
 User Prompt
@@ -55,6 +53,7 @@ User Prompt
        ↓
   analysis.ipynb  →  plots, statistics, summary
 
+```
 
 ### Set Up
 TBD
