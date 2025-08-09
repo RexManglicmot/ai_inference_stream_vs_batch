@@ -1,0 +1,8 @@
+timestamp,mode,prompt_id,model_id,device,max_new_tokens,temperature,total_latency_ms,tokens_per_sec,output_len
+2025-08-09T16:50:47Z,batch,TEST-001,distilgpt2,mps,32,0.7,1234,20.5,32
+2025-08-09T16:58:41Z,batch,1,distilgpt2,mps,64,0.7,5648,11.33000761355525,64
+2025-08-09T16:58:41Z,stream,1,distilgpt2,mps,64,0.7,490,130.37584980261275,64
+2025-08-09T16:58:42Z,batch,2,distilgpt2,mps,64,0.7,838,76.30639296006254,64
+2025-08-09T16:58:43Z,stream,2,distilgpt2,mps,64,0.7,442,144.58295405939782,64
+2025-08-09T16:58:43Z,batch,3,distilgpt2,mps,64,0.7,627,102.06828493272444,64
+2025-08-09T16:58:44Z,stream,3,distilgpt2,mps,64,0.7,465,137.40827594936405,64

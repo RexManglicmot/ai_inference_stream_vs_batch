@@ -16,8 +16,11 @@ Learning
 
 - on macOS, you can hit native issues (memory/threads/tokenizers), which showed up as the bus error. So: tiny works ; larger models stress the environment and reveal those mac-specific quirks. that stubborn macOS native “bus error” again. Your code is fine; it’s the environment + backend
 
-- had to change the reuqirements, settings.yaml, and the model loader.py often. like ALOT.
+- had to change the reuqirements, settings.yaml, and the model loader.py often. like ALOT. There are alot of backend issues, had to rewrite requirements multiple times. 
 
+- when to have smoke test per scipt vs logging? should do smoke test on each script to see if it works and then add logging  adn then add logging to eahc scropt where I want logs? What is industry practice?
+
+- stuck on logging vs smoke test. Also, Shoudl smoke test be in a separate script to uncomplicate things? Issue I have now is logging in the core script AND in the smoek test? 
 
 
 
@@ -34,3 +37,10 @@ Learning
  csv ->
  app/config_loader ->
  app/prompt_laoder -> 
+ app/model_loader ->
+ app/runtime_setup ->
+ app/inference_batch ->
+ app/inference_stream ->
+ app/metrics_logger ->
+ benchmark_logger ->
+ app/logger_config -> REStart HERE: STILL NEED TO DO (put into model_loader, inference_batch, inference_stream, benchmark_logger) 

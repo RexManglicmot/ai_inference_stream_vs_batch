@@ -8,6 +8,8 @@ os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")  # allow CPU fallback 
 
 import time
 import torch
+from app.logger_config import get_logger   # ← add logging
+log = get_logger(__name__)                 # ← module logger
 
 def run_batch(tokenizer, model, prompt: str, *, max_new_tokens: int, temperature: float, device: str):
     """
@@ -47,6 +49,7 @@ if __name__ == "__main__":
     tok, mdl, device = load_model(cfg["model_id"], cfg.get("device", "cpu"))
 
     prompt = "Transformer caching lets models reuse key/value states, which"
+    
     res = run_batch(
         tok, mdl, prompt,
         max_new_tokens=min(32, cfg.get("max_new_tokens", 32)),
