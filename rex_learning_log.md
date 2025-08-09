@@ -9,3 +9,22 @@ Learning
 - "Logging" comes after we can 1) load config 2) load pomrpts 3) run a simple model once (such that we have something to log)
 
 - Logging does not happen during config becauselogging is useful when there is ACTIVITY TO TRAVK like "loaded config sucessufly, " model laoded in 2.3 secs'. In prodiuction code, you typically add logging as soon as your first “real” actions happen
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ csv ->
+ app/config_loader ->
+ app/prompt_laoder -> 
