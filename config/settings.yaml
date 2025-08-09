@@ -1,11 +1,50 @@
-# Local only confiv for Streaming vs Batch Inference
+# # Local only confiv for Streaming vs Batch Inference
 
-# Model + generation
-model_id: "gpt2"        # Model ID from HuggingFace
-device: "cpu"           # "cpu" pr "cuda"
+# # Model + generation
+# model_id: "distilgpt2"        # Model ID from HuggingFace
+# device: "cpu"           # "cpu" pr "cuda"
+# max_new_tokens: 16
+# temperature: 0.7
+
+# # Benchmark controls
+# num_runs: 1
+# prompt_sample_size: 0   # 0 = use all prompts
+
+
+# model_id: "sshleifer/tiny-gpt2"  # <— tiny smoke-test model
+# device: "cpu"
+# max_new_tokens: 16
+# temperature: 0.7
+# num_runs: 1
+# prompt_sample_size: 0
+
+# THIS WORKS, but resposne was nonsense
+#
+# model_id: "sshleifer/tiny-gpt2"
+# max_new_tokens: 16
+# device: "cpu"
+# temperature: 0.7
+# num_runs: 1
+# prompt_sample_size: 0
+
+# model_id: "distilgpt2"
+# max_new_tokens: 16
+# device: "cpu"
+# temperature: 0.7
+# num_runs: 1
+# prompt_sample_size: 0
+
+# model_id: "distilgpt2"
+# device: "cpu"        # if you have Apple Silicon GPU, you can try: "mps"
+# max_new_tokens: 16
+# temperature: 0.7
+# num_runs: 1
+# prompt_sample_size: 0
+
+model_id: "distilgpt2"
+device: "cpu"      # leave as "cpu"; code will auto-switch to "mps" if available
 max_new_tokens: 64
 temperature: 0.7
-
-# Benchmark controls
 num_runs: 1
-prompt_sample_size: 0   # 0 = use all prompts
+prompt_sample_size: 0
+

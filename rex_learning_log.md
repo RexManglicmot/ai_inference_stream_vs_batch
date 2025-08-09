@@ -10,7 +10,13 @@ Learning
 
 - Logging does not happen during config becauselogging is useful when there is ACTIVITY TO TRAVK like "loaded config sucessufly, " model laoded in 2.3 secs'. In prodiuction code, you typically add logging as soon as your first “real” actions happen
 
+- Use python3.11 and torch, the 3.12 version makes it incompatible.
 
+- lots of issues dealing with the model selection in the setting.yaml and the model_loader.py. When I ran the model_loader.py, the code work but the output was trash and not understood. This is due to teh small model that was trained on 15mb, I need to stick witht eh small gpt and move forward because I went and rewrote the 2 files above and dont want to do taht in the future when i have to switch from the small model that worked to teh model that should work. 
+
+- on macOS, you can hit native issues (memory/threads/tokenizers), which showed up as the bus error. So: tiny works ; larger models stress the environment and reveal those mac-specific quirks. that stubborn macOS native “bus error” again. Your code is fine; it’s the environment + backend
+
+- had to change the reuqirements, settings.yaml, and the model loader.py often. like ALOT.
 
 
 

@@ -1,68 +1,59 @@
 # app/model_loader.py
-# Loads a local Hugging Face model + tokenizer (No API  and keys)
+import app.runtime_setup  # keep this first
 
-from pathlib import Path
-from typing import Tuple
+import os
+os.environ.setdefault("TOKENIZERS_PARALLELISM", "false")
+os.environ.setdefault("OMP_NUM_THREADS", "1")
+os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")  # safe on Mac
+
 import torch
-from transformers import AutoTokenizer, AutoModelForCausalLM
+torch.set_num_threads(1)
 
-# This one we created
-# Loads project settings form settings.yaml
+from typing import Tuple
+from transformers import AutoTokenizer, AutoModelForCausalLM
 from app.config_loader import load_config
 
+def pick_device(cfg_device: str) -> str:
+    # If user asked for mps, use it if available
+    if cfg_device == "mps" and torch.backends.mps.is_available():
+        return "mps"
+    # If user asked for cpu but MPS exists, prefer mps to avoid CPU-native crash
+    if cfg_device == "cpu" and torch.backends.mps.is_available():
+        return "mps"
+    return "cpu"
+
 def load_model(model_id: str, device: str = "cpu") -> Tuple[AutoTokenizer, AutoModelForCausalLM, str]:
-    """
-    Download/load a model + tokenizer locally via transformers
-    
-    Args:
-        model_id: Name or path of the HF model ("gpt2")
-        device: Device to rund the mon on ("cpu")
-        
-    Returns:
-        tokenizer: Tokenizer object that converts text into tokens
-        model: Pretrained model ready for inference
-        device: Device stirng used for model placement
-    """
+    device = pick_device(device)
+    # print(f"[device] using: {device}")
 
-    # Load tokenizer from HF
-    tokenizer = AutoTokenizer.from_pretrained(model_id)
-
-
-    # pad token=?
-
-    # Ensure tokenizer has a pad token to avoid warnings during batching
-    if tokenizer.pad_token is None and tokenizer.eos_token_id is not None:
+    tokenizer = AutoTokenizer.from_pretrained(model_id, use_fast=False)
+    if tokenizer.pad_token_id is None and tokenizer.eos_token_id is not None:
         tokenizer.pad_token = tokenizer.eos_token
 
-    # Load the model weights into memory
-    # Need to review args here
-    model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=torch.float32)
-
-    # Move model to CPU
+    # MPS is happier with float16; CPU stays float32
+    dtype = torch.float16 if device == "mps" else torch.float32
+    model = AutoModelForCausalLM.from_pretrained(model_id, torch_dtype=dtype)
     model.to(device)
-
-    # Set to evaluation mode (no training gradients)
     model.eval()
-
+    # sometimes helps on mac backends
+    model.config.use_cache = False
     return tokenizer, model, device
 
 if __name__ == "__main__":
-    # Smoke test to confirm that the model loads and can generate text
-
-    # Load the configuration from YAML
     cfg = load_config()
+    tok, mdl, device = load_model(cfg["model_id"], cfg.get("device", "cpu"))
 
-    # Load tokenizer and model based on settings
-    tok, mdl, device = load_model(cfg['model_id'], cfg.get("device", "cpu"))
-
-    # Define a simple prompt
-    prompt = "Say one short sentence about transformer caching."
-
-    # Tokenize prompt and move tensors to correct device
+    prompt = "Transformer caching lets models reuse key/value states, which"
     inputs = tok(prompt, return_tensors="pt").to(device)
 
-    # Run the model in inference mode (no gradient calc)
-    with torch.no_grad():
-        out = m
+    max_tokens = min(int(cfg.get("max_new_tokens", 64)), 12)  # very small for smoke test
+    with torch.inference_mode():
+        out = mdl.generate(
+            **inputs,
+            max_new_tokens=max_tokens,
+            do_sample=False,            # ← greedy
+            # temperature is ignored when do_sample=False
+        )
 
-
+    text = tok.decode(out[0], skip_special_tokens=True)
+    print("\n[MODEL OUTPUT]\n", text[:300])
