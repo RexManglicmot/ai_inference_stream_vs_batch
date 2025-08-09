@@ -1,0 +1,4 @@
+prompt_id,prompt_text
+001,Explain caching in transformers in two sentences.
+002,Give three advantages of batch inference over streaming for offline jobs.
+003,Summarize why token throughput matters for production LLMs.
