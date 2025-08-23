@@ -14,10 +14,14 @@ from app.inference_batch import run_batch
 from app.inference_stream import run_stream
 from app.metrics_logger import log_row
 
+from app.logger_config import get_logger   # add logging
+log = get_logger(__name__)                 # module logger
+
 
 def utc_now_iso() -> str:
-    return datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
-
+    ts = datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace("+00:00", "Z")
+    log.debug(f"utc_now_iso() -> {ts}")   # debug-level (useful for tracing, not noisy)
+    return ts
 
 def iter_prompts(df, sample_size: int | None) -> Iterable[dict]:
     """
@@ -35,6 +39,7 @@ def run_benchmark():
     Load config/model/prompts and run both modes (batch + stream)
     for each prompt, repeating num_runs times, logging every run to CSV.
     """
+    log.info("start run_benchmark function")
     cfg = load_config()
     model_id = cfg["model_id"]
     device_cfg = cfg.get("device", "cpu")
@@ -98,6 +103,7 @@ def run_benchmark():
 
             total_runs += 2  # batch + stream
 
+    log.info("End benchmark function and print out should be below")
     return {
         "prompts": len(prompts),
         "num_runs_per_prompt": num_runs,
@@ -121,3 +127,6 @@ if __name__ == "__main__":
         "device": summary["device"],
     })
     print("\nWrote rows to data/inference_logs.csv\n")
+
+
+# Run python3 -m app.benchmark_logger

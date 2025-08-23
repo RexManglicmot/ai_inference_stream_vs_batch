@@ -8,7 +8,8 @@ os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")  # allow CPU fallback 
 
 import time
 import torch
-
+from app.logger_config import get_logger   # add logging
+log = get_logger(__name__)                 # module logger
 
 def run_stream(tokenizer, model, prompt: str, *, max_new_tokens: int, temperature: float, device: str):
     """
@@ -20,6 +21,9 @@ def run_stream(tokenizer, model, prompt: str, *, max_new_tokens: int, temperatur
       - Per-step overhead makes stream slower than batch; that’s expected.
       - Greedy decoding keeps results stable for benchmarking.
     """
+    log.info("Start run_stream function")
+    log.info(f'Model is {model}')
+
     # Encode prompt once
     inputs = tokenizer(prompt, return_tensors="pt").to(device)
     input_ids = inputs["input_ids"]
@@ -57,6 +61,7 @@ def run_stream(tokenizer, model, prompt: str, *, max_new_tokens: int, temperatur
     gen_tokens = full_ids.shape[1] - input_ids.shape[1]
     tps = gen_tokens / total_s if total_s > 0 else 0.0
 
+    log.info("End run_stream function and print out should be below")
     return {
         "text": text,
         "total_latency_ms": int(total_s * 1000),
@@ -87,5 +92,8 @@ if __name__ == "__main__":
         "output_len": res["output_len"],
     })
     print("\n")
-    print(res["text"][:200])
+    print(res["text"][:50])
     print("\n") 
+
+# Run python3 -m app.inference_stream
+# It worked BABY!!

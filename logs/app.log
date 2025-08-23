@@ -7,3 +7,80 @@
 2025-08-09 14:29:12 | INFO | __main__ | Using device: mps
 2025-08-09 14:29:13 | INFO | __main__ | Loading model 'distilgpt2' with dtype=torch.float16
 2025-08-09 14:29:15 | INFO | __main__ | Model loaded and ready (eval mode, use_cache=False)
+2025-08-23 04:29:43 | INFO | app.logger_test | Logger initialized.
+2025-08-23 04:29:43 | WARNING | app.logger_test | This is a warning.
+2025-08-23 04:29:43 | ERROR | app.logger_test | This is an error.
+2025-08-23 05:41:33 | INFO | app.model_loader | Requested cpu but MPS is still available bro --> using MPS for stability
+2025-08-23 05:41:33 | INFO | app.model_loader | Using device: mps
+2025-08-23 05:41:34 | INFO | app.model_loader | Loading model 'distilgpt2' with dtype=torch.float16
+2025-08-23 05:41:40 | INFO | app.model_loader | Model loaded and ready (eval mode, use_cache=False)
+2025-08-23 05:46:35 | INFO | __main__ | Requested cpu but MPS is still available bro --> using MPS for stability
+2025-08-23 05:46:35 | INFO | __main__ | Using device: mps
+2025-08-23 05:46:36 | INFO | __main__ | Loading model 'distilgpt2' with dtype=torch.float16
+2025-08-23 05:46:37 | INFO | __main__ | Model loaded and ready (eval mode, use_cache=False)
+2025-08-23 05:57:43 | INFO | __main__ | start run_batch
+2025-08-23 05:57:44 | INFO | __main__ | End run_batch and there should be a print out below
+2025-08-23 06:03:48 | INFO | __main__ | Start run_stream function
+2025-08-23 06:03:49 | INFO | __main__ | End run_stream function and print out should be below
+2025-08-23 06:05:52 | INFO | __main__ | Start run_stream function
+2025-08-23 06:05:52 | INFO | __main__ | Model is GPT2LMHeadModel(
+  (transformer): GPT2Model(
+    (wte): Embedding(50257, 768)
+    (wpe): Embedding(1024, 768)
+    (drop): Dropout(p=0.1, inplace=False)
+    (h): ModuleList(
+      (0-5): 6 x GPT2Block(
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (attn): GPT2SdpaAttention(
+          (c_attn): Conv1D()
+          (c_proj): Conv1D()
+          (attn_dropout): Dropout(p=0.1, inplace=False)
+          (resid_dropout): Dropout(p=0.1, inplace=False)
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): GPT2MLP(
+          (c_fc): Conv1D()
+          (c_proj): Conv1D()
+          (act): NewGELUActivation()
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+      )
+    )
+    (ln_f): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  )
+  (lm_head): Linear(in_features=768, out_features=50257, bias=False)
+)
+2025-08-23 06:05:53 | INFO | __main__ | End run_stream function and print out should be below
+2025-08-23 06:07:54 | INFO | __main__ | start run_batch function
+2025-08-23 06:07:54 | INFO | __main__ | Model is GPT2LMHeadModel(
+  (transformer): GPT2Model(
+    (wte): Embedding(50257, 768)
+    (wpe): Embedding(1024, 768)
+    (drop): Dropout(p=0.1, inplace=False)
+    (h): ModuleList(
+      (0-5): 6 x GPT2Block(
+        (ln_1): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (attn): GPT2SdpaAttention(
+          (c_attn): Conv1D()
+          (c_proj): Conv1D()
+          (attn_dropout): Dropout(p=0.1, inplace=False)
+          (resid_dropout): Dropout(p=0.1, inplace=False)
+        )
+        (ln_2): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+        (mlp): GPT2MLP(
+          (c_fc): Conv1D()
+          (c_proj): Conv1D()
+          (act): NewGELUActivation()
+          (dropout): Dropout(p=0.1, inplace=False)
+        )
+      )
+    )
+    (ln_f): LayerNorm((768,), eps=1e-05, elementwise_affine=True)
+  )
+  (lm_head): Linear(in_features=768, out_features=50257, bias=False)
+)
+2025-08-23 06:07:56 | INFO | __main__ | End run_batch and there should be a print out below
+2025-08-23 06:16:33 | INFO | app.model_loader | Requested cpu but MPS is still available bro --> using MPS for stability
+2025-08-23 06:16:33 | INFO | app.model_loader | Using device: mps
+2025-08-23 06:16:34 | INFO | app.model_loader | Loading model 'distilgpt2' with dtype=torch.float16
+2025-08-23 06:16:36 | INFO | app.model_loader | Model loaded and ready (eval mode, use_cache=False)

@@ -5,11 +5,10 @@ import app.runtime_setup  # keep this first
 import os
 os.environ.setdefault("PYTORCH_ENABLE_MPS_FALLBACK", "1")  # allow CPU fallback for missing MPS ops
 
-
 import time
 import torch
-from app.logger_config import get_logger   # ← add logging
-log = get_logger(__name__)                 # ← module logger
+from app.logger_config import get_logger   # add logging
+log = get_logger(__name__)                 # module logger
 
 def run_batch(tokenizer, model, prompt: str, *, max_new_tokens: int, temperature: float, device: str):
     """
@@ -18,6 +17,8 @@ def run_batch(tokenizer, model, prompt: str, *, max_new_tokens: int, temperature
       - tokens_per_sec
       - output_len
     """
+    log.info("start run_batch function")
+    log.info(f"Model is {model}")
     inputs = tokenizer(prompt, return_tensors="pt").to(device)
 
     t0 = time.perf_counter()
@@ -33,6 +34,9 @@ def run_batch(tokenizer, model, prompt: str, *, max_new_tokens: int, temperature
     gen_tokens = out.shape[1] - inputs["input_ids"].shape[1]
     tps = gen_tokens / total_s if total_s > 0 else 0.0
 
+    # log.info needs to be before the return, otherwise if after, return will exit the function
+    # and any line after it will never execute...OH!!!!
+    log.info("End run_batch and there should be a print out below")
     return {
         "text": text,
         "total_latency_ms": int(total_s * 1000),
@@ -61,5 +65,7 @@ if __name__ == "__main__":
            "tokens_per_sec": round(res["tokens_per_sec"], 3),
            "output_len": res["output_len"]})
     print("\n") 
-    print(res["text"][:200].strip())        # removes extra spaces/newlines
+    print(res["text"][:50].strip())        
     print("\n") 
+
+# Run python3 -m app.inference_batch

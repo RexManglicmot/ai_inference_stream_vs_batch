@@ -22,6 +22,9 @@ Learning
 
 - stuck on logging vs smoke test. Also, Shoudl smoke test be in a separate script to uncomplicate things? Issue I have now is logging in the core script AND in the smoek test? 
 
+- Need to brush up on logging info, debug, and error
+
+
 
 
 
@@ -43,4 +46,10 @@ Learning
  app/inference_stream ->
  app/metrics_logger ->
  benchmark_logger ->
- app/logger_config -> REStart HERE: STILL NEED TO DO (put into model_loader, inference_batch, inference_stream, benchmark_logger) 
+ app/logger_config -> REStart HERE: STILL NEED TO DO 
+ 
+ (put into 
+ model_loader...DONE
+ inference_batch..DONE 
+ inference_stream...DONE
+ benchmark_logger....) 

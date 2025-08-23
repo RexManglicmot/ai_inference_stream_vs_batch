@@ -4,3 +4,10 @@ venv_ai_inference_stream_vs_batch
 
 # Directories
 pics/
+old/
+app/__pycache__
+
+# Files
+*.csv
+*.pyc
+*.log
